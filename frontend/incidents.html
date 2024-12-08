@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инциденты | FLORA</title>
+    <link rel="stylesheet" href="static/css/style2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navigation">
+            <span class="project">
+                <b>FLORA</b><br>
+                Мониторинг УДС
+            </span>
+            <ul>
+                <li><a class="incidents-page" href="#">Инциденты</a></li>
+                <li><a class="incident-archive-page" href="#">Архив инцидентов</a></li>
+                <li><a class="incident-guide" href="#">Памятка</a></li>
+            </ul>
+        </div>
+        <div class="user">
+            <span class="location"><img src="static/images/marker.svg" alt="!">Краснодар</span>
+            <input type="button" class="button-row" value="Выйти" onclick="">
+            <img class="avatar" src="static/images/gamer.png" alt="User Avatar">
+        </div>
+    </nav>
+
+    <div class="titleName">
+        <b>ИНЦИДЕНТЫ</b>
+    </div>
+
+    <div class="main">
+        <div class="map">
+            <iframe src="https://yandex.ru/map-widget/v1/?ll=38.987617%2C45.059731&mode=routes&rtext=~45.059759%2C38.986097&rtt=auto&ruri=~&z=14.3" frameborder="1" allowfullscreen="true"></iframe>
+        </div>
+
+        <div class="incidents">
+            <nav class="navbar-inc">
+                <input type="button" class="button-row-inc active" value="Все" onclick="filterIncidents('all', this)">
+                <input type="button" class="button-row-inc" value="ДТП" onclick="filterIncidents('dtp', this)">
+                <input type="button" class="button-row-inc" value="Экстренные" onclick="filterIncidents('emergency', this)">
+                <input type="button" class="button-row-inc" value="Прочее" onclick="filterIncidents('other', this)">
+            </nav>
+
+            <div class="incidents-list">
+                <div class="incident-item" data-category="dtp">
+                    <img class="incident-img" src="static/images/dtp.png" alt="Incident Img">
+                    <div class="incident-information">
+                        <div class="category">
+                            Авария
+                        </div>
+                        <div class="street">
+                            ул. Красная, 96
+                        </div>
+                    </div>
+                </div>
+                <div class="incident-item" data-category="emergency">
+                    <img class="incident-img" src="static/images/emergency.png" alt="Incident Img">Пожар в доме
+                </div>
+                <div class="incident-item" data-category="other">
+                    <img class="incident-img" src="static/images/other.png" alt="Incident Img">Потерянный ребёнок
+                </div>
+                <div class="incident-item" data-category="dtp">
+                    <img class="incident-img" src="static/images/dtp.png" alt="Incident Img">Столкновение у моста
+                </div>
+                <div class="incident-item" data-category="emergency">
+                    <img class="incident-img" src="static/images/emergency.png" alt="Incident Img">Затопление улицы
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterIncidents(category, button) {
+            document.querySelectorAll('.button-row-inc').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+
+            const incidents = document.querySelectorAll('.incident-item');
+            incidents.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
