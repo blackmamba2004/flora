@@ -1,0 +1,32 @@
+services:
+  transport:
+    image: transport_image_dev
+    build:
+      context: ..
+      dockerfile: dev/Dockerfile
+    container_name: transport_app_dev
+    depends_on:
+      - dev_db
+    environment:
+      - PYTHONPATH=/app
+    env_file:
+      - .env 
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload", "--log-level", "debug"]
+    ports:
+      - 8000:8000
+    volumes:
+      - ../app:/app/app
+      - ../dev/migrations:/app/dev/migrations
+  
+  dev_db:
+    image: postgres:16.4
+    container_name: transport_db_dev
+    env_file:
+      - .env
+    ports:
+      - 5432:5432
+    volumes:
+      - transport_data:/var/lib/postgresql/data
+
+volumes:
+  transport_data:
